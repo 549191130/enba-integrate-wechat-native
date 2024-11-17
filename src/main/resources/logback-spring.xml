@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration debug="false" status="WARN">
+
+  <property name="LOG_CONTEXT_NAME" value="enba-integrate-wx-native"/>
+  <property name="LOG_HOME" value="../logs/${LOG_CONTEXT_NAME}"/>
+
+  <!--  控制台输出-->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56}.%method:%L - %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <root level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

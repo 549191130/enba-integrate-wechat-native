@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>恩爸编程【网页授权演示】</title>
+
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5; /* 淡灰色背景 */
+      color: #333; /* 深灰色文字，对比度适中 */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #222; /* 更深的标题颜色，以突出显示 */
+    }
+
+    p {
+      margin: 1em 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: #fff; /* 白色背景的容器，增加可读性 */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+<h1 th:text="${title}" style="text-align: center">网页授权演示</h1>
+<p style="text-align: center">
+  <a target="_blank"  href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">官网文档参考地址</a>
+</p>
+
+<p class="container">关于网页授权回调域名的说明</p>
+
+<ol class="container">
+  <li>
+    在微信公众号请求用户网页授权之前，开发者需要先到公众平台官网中的「设置与开发」-「功能设置」-「网页授权域名」的配置选项中，修改授权回调域名。请注意，这里填写的是域名（是一个字符串），而不是URL，因此请勿加
+    http:// 等协议头；
+  </li>
+  <li>授权回调域名配置规范为全域名，比如需要网页授权的域名为：www.qq.com，配置以后此域名下面的页面http://www.qq.com/music.html
+    、 http://www.qq.com/login.html 都可以进行OAuth2.0鉴权。但http://pay.qq.com 、 http://music.qq.com
+    、 http://qq.com 无法进行OAuth2.0鉴权
+  </li>
+  <li>
+    如果公众号登录授权给了第三方开发者来进行管理，则不必做任何设置，由第三方代替公众号实现网页授权即可
+  </li>
+</ol>
+
+<p class="container">关于网页授权的两种scope的区别说明</p>
+
+<ol class="container">
+  <li>
+    以snsapi_base为scope发起的网页授权，是用来获取进入页面的用户的openid的，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）
+  </li>
+  <li>
+    以snsapi_userinfo为scope发起的网页授权，是用来获取用户的基本信息的。但这种授权需要用户手动同意，并且由于用户同意过，所以无须关注，就可在授权后获取该用户的基本信息。
+  </li>
+  <li>
+    用户管理类接口中的“获取用户基本信息接口”，是在用户和公众号产生消息交互或关注后事件推送后，才能根据用户OpenID来获取用户基本信息。这个接口，包括其他微信接口，都是需要该用户（即openid）关注了公众号后，才能调用成功的。
+  </li>
+</ol>
+
+<p style="text-align: center">
+  <a th:href="@{${jingMoUrl}}">静默授权</a>
+</p>
+
+<p style="text-align: center">
+  <a th:href="@{${noJingMoUrl}}">非静默授权</a>
+</p>
+
+
+</body>
+</html>
